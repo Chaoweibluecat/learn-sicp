@@ -1,0 +1,33 @@
+(define (make-queue)
+;let申请的两个局部变量,作为链表数据结构的载体
+  (let ((front-ptr '() )
+        (rear-ptr '() ))
+    (define (set-front-ptr! item) 
+        (set! front-ptr item))
+    (define (set-rear-ptr! item) 
+        (set! rear-ptr item))
+    (define (empty-queue?) 
+        (null? front-ptr))
+    (define (insert-queue! item)
+    (let ((new-pair (cons item '())))
+    (cond ((empty-queue?)
+           (set-front-ptr! new-pair)
+           (set-rear-ptr! new-pair)
+           (cons front-ptr rear-ptr))
+           ; 链表链接
+          (else (set-cdr! rear-ptr new-pair)
+          ;重设尾指针
+                (set! rear-ptr new-pair)
+                (cons front-ptr rear-ptr)))))
+    (define (dispatch op) 
+    (cond ((eq? op 'front-ptr) front-ptr)
+        ((eq? op 'rear-ptr) rear-ptr)
+        ((eq? op 'insert-queue!) insert-queue!)))
+    dispatch))
+
+
+(define q1 (make-queue))
+(define q2 (make-queue))
+((q1 'insert-queue!) 'a)
+((q1 'insert-queue!) 'b)
+((q1 'insert-queue!) 'c)

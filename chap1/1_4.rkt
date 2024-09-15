@@ -1,4 +1,6 @@
-(define a 3)
-(define b (+ a 1))
-(define (cd c d)
-((if (> d 0) + -) c d))
+(define (f n)
+    (if (< n 4)
+        n
+        (+ (f (- n 1)) (* 2 (- n 2)) (* 3 (- n 3)))))
+(f 4)
+
